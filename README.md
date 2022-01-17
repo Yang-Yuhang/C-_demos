@@ -9,4 +9,7 @@ Eight queens problem is solved using Qt with a GUI.
 
 
 ## machine vision
-there are two folders in this directory. The outer_trace folder extacts the outer edge of a image, and the multi-object tracking aims to track objects in a video. Both of them are implemented with OpenCV 3.4.5.
+There are two folders in this directory. The outer_trace folder extacts the outer edge of a image, and the multi-object tracking aims to track objects in a video. Both of them are implemented with OpenCV 3.4.5.
+
+## Greedy_Snake
+The game "greedy snake".
