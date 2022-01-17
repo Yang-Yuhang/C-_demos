@@ -1,0 +1,119 @@
+//LinkStack.h
+#ifndef LINSTACK_H
+#define LINSTACK_H
+#include<iostream>
+using namespace std;
+template<class T>
+class LinkNode  //结点类
+{
+	template<class T>
+	friend class LinkStack;//声明为链接栈的友类
+public:
+	LinkNode()  //构造函数
+	{
+		next=NULL;
+	}
+private:
+	T data;     //数据域
+	LinkNode<T> *next; //指针域
+};
+template<class T>
+class LinkStack//链接栈类模板
+{
+public:
+	LinkStack();//构造函数
+	~LinkStack(); //析构函数
+	bool IsEmpty() const; //判断栈是否为空(true)，不改变栈内元素
+	bool Push(const T& x); //栈顶插入x，成功返回true;
+	bool Top(T& x); //求栈顶元素并将其放入x(true);
+	bool Pop(T& x);//删除栈顶元素并将其放入x(true);
+	void OutPut(ostream &out) const;//输出栈
+private:
+	LinkNode<T> *top;//栈顶指针
+	int size;//栈的大小
+};
+//构造函数
+template<class T>
+LinkStack<T>::LinkStack()
+{
+	top=NULL;
+	size=0;
+}
+//析构函数
+template<class T>
+LinkStack<T>::~LinkStack()
+{
+	T x;
+	while(top!=NULL)
+		Pop(x);
+}
+//判断栈是否为空(true)，不改变栈内元素
+template<class T>
+bool LinkStack<T>::IsEmpty() const
+{
+	return size==0;
+}
+//栈顶插入x，成功返回true;
+template<class T>
+bool LinkStack<T>::Push(const T &x)
+{
+	LinkNode<T> *p=new LinkNode<T>;
+	if(p==NULL)
+		return false;
+	else
+	{
+		p->data=x;
+		p->next=top;
+		top=p;
+		size++;
+		return true;
+	}
+}
+//求栈顶元素并将其放入x(true);
+template<class T>
+bool LinkStack<T>::Top(T &x)
+{
+	if(top==NULL)
+		return false;
+	else
+	{
+		x=top->data;
+		return true;
+	 }
+}
+//删除栈顶元素并将其放入x(true);
+template<class T>
+bool LinkStack<T>::Pop(T &x)
+{
+	if(top==NULL)
+		return false;
+	else
+	{
+		LinkNode<T> *p=top;
+		x=top->data;
+		top=top->next;
+		delete p;
+		size--;
+		return true;
+	}
+}
+//输出栈
+template<class T>
+void LinkStack<T>::OutPut(ostream &out) const
+{
+	LinkNode<T> *p;
+	p=top;
+	for(int i=0;i<size;i++)
+	{
+		out<<p->data<<" ";
+		p=p->next;
+	}
+}
+//重载运算符<<
+template<class T>
+ostream& operator<<(ostream &out,const LinkStack<T> &x)
+{
+	x.OutPut(out);
+	return out;
+}
+#endif
